@@ -1,0 +1,253 @@
+openapi: 3.0.0
+info:
+  title: TodoApp
+  contact: {}
+  version: '1.0'
+servers:
+  - url: https://todo-api-ml.herokuapp.com/api/v1
+    variables: {}
+paths:
+  /authN/login:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+            example:
+              email: anna@gmail.com
+              password: thesecret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /authN/register:
+    post:
+      tags:
+        - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+            example:
+              name: anna doe
+              password: thesecret
+              email: anna@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /tasks:
+    post:
+      tags:
+        - Task
+      summary: Create Task
+      operationId: CreateTask
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+            example:
+              task: this is a demo task 3
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Task
+      summary: Get All Tasks
+      operationId: GetAllTasks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Task
+      summary: Delete Completed Tasks
+      operationId: DeleteCompletedTasks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /tasks/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The task ID
+    get:
+      tags:
+        - Task
+      summary: Get Task
+      operationId: GetTask
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - Task
+      summary: Task Update
+      operationId: TaskUpdate
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdateRequest'
+            example:
+              task: I update the first task
+              isCheck: true
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Task
+      summary: Delete Task
+      operationId: DeleteTask
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /renewalAuthN:
+    get:
+      tags:
+        - Auth
+      summary: Refresh Token
+      operationId: RefreshToken
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /renewalAuthN/logout:
+    get:
+      tags:
+        - Auth
+      summary: Logout User
+      operationId: RefreshLogout
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: anna@gmail.com
+        password: thesecret
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+        - name
+        - password
+        - email
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+      example:
+        name: anna doe
+        password: thesecret
+        email: anna@gmail.com
+    CreateTaskRequest:
+      title: CreateTaskRequest
+      required:
+        - task
+      type: object
+      properties:
+        task:
+          type: string
+      example:
+        task: this is a demo task 3
+    TaskUpdateRequest:
+      title: TaskUpdateRequest
+      required:
+        - task
+        - isCheck
+      type: object
+      properties:
+        task:
+          type: string
+        isCheck:
+          type: boolean
+      example:
+        task: I update the first task
+        isCheck: true
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ''
+  - name: Task
+    description: ''
