@@ -1,3 +1,3 @@
-const allowedOrigins = ['https://todo-ml.netlify.app', 'http://localhost:3000'];
+const allowedOrigins = ['https://todo-ml.vercel.app'];
 
 module.exports = allowedOrigins;
